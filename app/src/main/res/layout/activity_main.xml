@@ -14,7 +14,8 @@
         android:layout_margin="16dp"
         android:clickable="true"
         android:focusable="true"
-        app:srcCompat="@drawable/ic_action_new_contact" />
+        app:srcCompat="@drawable/ic_action_new_contact"
+        android:contentDescription="@string/new_contact" />
 
     <ListView
         android:id="@+id/activity_main_lista_de_alunos"
