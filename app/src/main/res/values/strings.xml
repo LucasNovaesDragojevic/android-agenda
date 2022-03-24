@@ -1,4 +1,8 @@
 <resources>
     <string name="app_name">Contacts</string>
     <string name="new_contact">New contact</string>
+    <string name="name">Name</string>
+    <string name="phone">Phone</string>
+    <string name="email">E-mail</string>
+    <string name="save">Save</string>
 </resources>
