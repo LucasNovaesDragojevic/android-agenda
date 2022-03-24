@@ -6,7 +6,7 @@
     android:orientation="vertical">
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/activity_main_fab_new_contact"
+        android:id="@+id/activity_list_contacts_fab_new_contact"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
@@ -18,7 +18,7 @@
         android:contentDescription="@string/new_contact" />
 
     <ListView
-        android:id="@+id/activity_main_lista_de_alunos"
+        android:id="@+id/activity_list_contacts_listview"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 </RelativeLayout>
