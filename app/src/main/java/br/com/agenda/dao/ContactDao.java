@@ -14,8 +14,6 @@ public final class ContactDao {
 
     static {
          CONTACTS = new ArrayList<>();
-         CONTACTS.add(new Contact("Jorge", "1234567890", "jorge@email.com"));
-         CONTACTS.add(new Contact("Roberta", "0123456789", "roberta@email.com"));
     }
 
     @NonNull

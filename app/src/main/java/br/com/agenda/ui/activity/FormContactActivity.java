@@ -4,9 +4,11 @@ import static br.com.agenda.ui.activity.ConstantsActivities.KEY_CONTACT;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import br.com.agenda.R;
@@ -29,7 +31,22 @@ public class FormContactActivity extends AppCompatActivity {
         setContentView(R.layout.activity_form_contact);
         initViews();
         initContact();
-        configSaveButton();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.activity_form_contact_menu, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (item.getItemId() == R.id.activity_form_contact_menu_item_save) {
+            fillContactWithView();
+            CONTACT_DAO.save(contact);
+            finish();
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     private void initContact() {
@@ -48,15 +65,6 @@ public class FormContactActivity extends AppCompatActivity {
         nameTextView = findViewById(R.id.activity_form_new_contact_name);
         phoneTextView = findViewById(R.id.activity_form_new_contact_phone);
         emailTextView = findViewById(R.id.activity_form_new_contact_email);
-    }
-
-    private void configSaveButton() {
-        final View btnSave = findViewById(R.id.activity_form_new_contact_btn_save);
-        btnSave.setOnClickListener(view -> {
-            fillContactWithView();
-            CONTACT_DAO.save(contact);
-            finish();
-        });
     }
 
     private void fillViewWithContact() {
