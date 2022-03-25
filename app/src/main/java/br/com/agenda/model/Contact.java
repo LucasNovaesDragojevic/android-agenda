@@ -8,7 +8,7 @@ import java.util.UUID;
 
 public class Contact implements Serializable {
 
-    private final String id = UUID.randomUUID().toString();;
+    private final String id = UUID.randomUUID().toString();
     private String name;
     private String phone;
     private String email;
