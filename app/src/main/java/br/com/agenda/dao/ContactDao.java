@@ -10,10 +10,12 @@ import br.com.agenda.model.Contact;
 
 public final class ContactDao {
 
-    private static final List<Contact> CONTACTS = new ArrayList<>();
+    private static final List<Contact> CONTACTS;
 
-    public final void save(Contact contact) {
-        CONTACTS.add(contact);
+    static {
+         CONTACTS = new ArrayList<>();
+         CONTACTS.add(new Contact("Jorge", "1234567890", "jorge@email.com"));
+         CONTACTS.add(new Contact("Roberta", "0123456789", "roberta@email.com"));
     }
 
     @NonNull
@@ -21,4 +23,16 @@ public final class ContactDao {
         return Collections.unmodifiableList(CONTACTS);
     }
 
+    public final void save(@NonNull Contact contact) {
+        if (CONTACTS.contains(contact)) {
+            update(contact);
+        } else {
+            CONTACTS.add(contact);
+        }
+    }
+
+    private void update(Contact contact) {
+        int index = CONTACTS.indexOf(contact);
+        CONTACTS.set(index, contact);
+    }
 }

@@ -1,5 +1,8 @@
 package br.com.agenda.ui.activity;
 
+import static br.com.agenda.ui.activity.ConstantsActivities.KEY_CONTACT;
+
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
@@ -13,18 +16,32 @@ import br.com.agenda.model.Contact;
 public class FormContactActivity extends AppCompatActivity {
 
     private static final ContactDao CONTACT_DAO = new ContactDao();
-    private static final String TITLE = "New Contact";
+    private static final String TITLE_NEW_CONTACT = "New Contact";
+    private static final String TITLE_EDIT_CONTACT = "Edit Contact";
     private TextView nameTextView;
     private TextView phoneTextView;
     private TextView emailTextView;
+    private Contact contact;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setTitle(TITLE);
         setContentView(R.layout.activity_form_contact);
         initViews();
+        initContact();
         configSaveButton();
+    }
+
+    private void initContact() {
+        final Intent intent = getIntent();
+        if (intent.hasExtra(KEY_CONTACT.name())) {
+            setTitle(TITLE_EDIT_CONTACT);
+            contact = (Contact) intent.getSerializableExtra(KEY_CONTACT.name());
+            fillViewWithContact();
+        } else {
+            setTitle(TITLE_NEW_CONTACT);
+            contact = new Contact();
+        }
     }
 
     private void initViews() {
@@ -36,12 +53,21 @@ public class FormContactActivity extends AppCompatActivity {
     private void configSaveButton() {
         final View btnSave = findViewById(R.id.activity_form_new_contact_btn_save);
         btnSave.setOnClickListener(view -> {
-            final String name = nameTextView.getText().toString();
-            final String phone = phoneTextView.getText().toString();
-            final String email = emailTextView.getText().toString();
-            final Contact contact = new Contact(name, phone, email);
+            fillContactWithView();
             CONTACT_DAO.save(contact);
             finish();
         });
+    }
+
+    private void fillViewWithContact() {
+        nameTextView.setText(contact.getName());
+        phoneTextView.setText(contact.getPhone());
+        emailTextView.setText(contact.getEmail());
+    }
+
+    private void fillContactWithView() {
+        contact.setName(nameTextView.getText().toString());
+        contact.setPhone(phoneTextView.getText().toString());
+        contact.setEmail(emailTextView.getText().toString());
     }
 }

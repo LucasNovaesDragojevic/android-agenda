@@ -1,5 +1,7 @@
 package br.com.agenda.ui.activity;
 
+import static br.com.agenda.ui.activity.ConstantsActivities.KEY_CONTACT;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -33,7 +35,7 @@ public class ListContactsActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        showListOfContacts();
+        configListOfContacts();
     }
 
     private void initViews() {
@@ -48,8 +50,14 @@ public class ListContactsActivity extends AppCompatActivity {
         });
     }
 
-    private void showListOfContacts() {
+    private void configListOfContacts() {
         final List<Contact> contacts = CONTACT_DAO.getAll();
         contactsListView.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, contacts));
+        contactsListView.setOnItemClickListener((adapterView, view, position, id) -> {
+            Contact contact = contacts.get(position);
+            Intent goToFormActivity = new Intent(ListContactsActivity.this, FormContactActivity.class);
+            goToFormActivity.putExtra(KEY_CONTACT.name(), contact);
+            startActivity(goToFormActivity);
+        });
     }
 }
