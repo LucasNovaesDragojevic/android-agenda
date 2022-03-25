@@ -35,4 +35,8 @@ public final class ContactDao {
         int index = CONTACTS.indexOf(contact);
         CONTACTS.set(index, contact);
     }
+
+    public void remove(Contact contact) {
+        CONTACTS.remove(contact);
+    }
 }
