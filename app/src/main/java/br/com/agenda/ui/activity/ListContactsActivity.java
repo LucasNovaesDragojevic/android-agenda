@@ -62,8 +62,7 @@ public class ListContactsActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        adapter.clear();
-        adapter.addAll(contacts);
+        adapter.update(contacts);
     }
 
     private void configNewContactButton() {

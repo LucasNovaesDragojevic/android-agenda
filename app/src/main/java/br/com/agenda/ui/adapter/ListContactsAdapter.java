@@ -50,15 +50,14 @@ public class ListContactsAdapter extends BaseAdapter {
         return viewCreated;
     }
 
-    public void addAll(List<Contact> contacts) {
-        this.contacts.addAll(contacts);
-    }
-
-    public void clear() {
+    public void update(List<Contact> contacts) {
         this.contacts.clear();
+        this.contacts.addAll(contacts);
+        notifyDataSetChanged();
     }
 
     public void remove(Contact contact) {
         this.contacts.remove(contact);
+        notifyDataSetChanged();
     }
 }
