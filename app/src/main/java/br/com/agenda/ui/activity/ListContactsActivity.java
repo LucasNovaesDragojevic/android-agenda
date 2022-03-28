@@ -8,7 +8,6 @@ import android.view.ContextMenu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import androidx.annotation.NonNull;
@@ -20,14 +19,15 @@ import java.util.List;
 import br.com.agenda.R;
 import br.com.agenda.dao.ContactDao;
 import br.com.agenda.model.Contact;
+import br.com.agenda.ui.adapter.ListContactsAdapter;
 
 public class ListContactsActivity extends AppCompatActivity {
 
     private static final ContactDao CONTACT_DAO = new ContactDao();
     private static final String TITLE = "Contacts";
     private ListView contactsListView;
-    private ArrayAdapter<Contact> arrayAdapter;
     private List<Contact> contacts;
+    private ListContactsAdapter adapter;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -35,11 +35,10 @@ public class ListContactsActivity extends AppCompatActivity {
         setTitle(TITLE);
         setContentView(R.layout.activity_list_contacts);
         contactsListView = findViewById(R.id.activity_list_contacts_listview);
-        arrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1);
-        contactsListView.setAdapter(arrayAdapter);
+        configAdapter();
         contacts = CONTACT_DAO.getAll();
         configNewContactButton();
-        configListOfContacts();
+        configClickOnItemList();
         registerForContextMenu(contactsListView);
     }
 
@@ -53,9 +52,9 @@ public class ListContactsActivity extends AppCompatActivity {
     public boolean onContextItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == R.id.activity_list_contacts_menu_remove) {
             AdapterView.AdapterContextMenuInfo menuInfo = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
-            Contact contact = arrayAdapter.getItem(menuInfo.position);
+            Contact contact = adapter.getItem(menuInfo.position);
             CONTACT_DAO.remove(contact);
-            arrayAdapter.remove(contact);
+            adapter.remove(contact);
         }
         return super.onContextItemSelected(item);
     }
@@ -63,8 +62,8 @@ public class ListContactsActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        arrayAdapter.clear();
-        arrayAdapter.addAll(contacts);
+        adapter.clear();
+        adapter.addAll(contacts);
     }
 
     private void configNewContactButton() {
@@ -75,10 +74,6 @@ public class ListContactsActivity extends AppCompatActivity {
         });
     }
 
-    private void configListOfContacts() {
-        configClickOnItemList();
-    }
-
     private void configClickOnItemList() {
         contactsListView.setOnItemClickListener((adapterView, view, position, id) -> {
             Contact contact = contacts.get(position);
@@ -86,5 +81,10 @@ public class ListContactsActivity extends AppCompatActivity {
             goToFormActivity.putExtra(KEY_CONTACT.name(), contact);
             startActivity(goToFormActivity);
         });
+    }
+
+    private void configAdapter() {
+        adapter = new ListContactsAdapter(this);
+        contactsListView.setAdapter(adapter);
     }
 }
