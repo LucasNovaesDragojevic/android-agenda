@@ -12,6 +12,7 @@ import android.widget.ListView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.List;
@@ -49,14 +50,25 @@ public class ListContactsActivity extends AppCompatActivity {
     }
 
     @Override
-    public boolean onContextItemSelected(@NonNull MenuItem item) {
+    public boolean onContextItemSelected(@NonNull final MenuItem item) {
         if (item.getItemId() == R.id.activity_list_contacts_menu_remove) {
-            AdapterView.AdapterContextMenuInfo menuInfo = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
-            Contact contact = adapter.getItem(menuInfo.position);
-            CONTACT_DAO.remove(contact);
-            adapter.remove(contact);
+            configRemoveContactDialog(item);
         }
         return super.onContextItemSelected(item);
+    }
+
+    private void configRemoveContactDialog(@NonNull final MenuItem item) {
+        new AlertDialog.Builder(this)
+                .setTitle("Remove contact")
+                .setMessage("Are you sure you want to remove this contact?")
+                .setPositiveButton("Yes", (dialogInterface, i) -> {
+                    AdapterView.AdapterContextMenuInfo menuInfo = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
+                    Contact contact = adapter.getItem(menuInfo.position);
+                    CONTACT_DAO.remove(contact);
+                    adapter.remove(contact);
+                })
+                .setNegativeButton("No", null)
+                .show();
     }
 
     @Override
