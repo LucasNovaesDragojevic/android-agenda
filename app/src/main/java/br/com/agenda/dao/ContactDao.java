@@ -1,40 +1,27 @@
 package br.com.agenda.dao;
 
-import androidx.annotation.NonNull;
+import androidx.room.Dao;
+import androidx.room.Delete;
+import androidx.room.Insert;
+import androidx.room.Query;
+import androidx.room.Update;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import br.com.agenda.model.Contact;
 
-public final class ContactDao {
+@Dao
+public interface ContactDao {
 
-    private static final List<Contact> CONTACTS;
+    @Insert
+    void create(Contact contact);
 
-    static {
-         CONTACTS = new ArrayList<>();
-    }
+    @Query("SELECT * FROM contact")
+    List<Contact> readAll();
 
-    @NonNull
-    public final List<Contact> getAll() {
-        return Collections.unmodifiableList(CONTACTS);
-    }
+    @Update
+    void update(Contact contact);
 
-    public final void save(@NonNull Contact contact) {
-        if (CONTACTS.contains(contact)) {
-            update(contact);
-        } else {
-            CONTACTS.add(contact);
-        }
-    }
-
-    private void update(Contact contact) {
-        int index = CONTACTS.indexOf(contact);
-        CONTACTS.set(index, contact);
-    }
-
-    public void remove(Contact contact) {
-        CONTACTS.remove(contact);
-    }
+    @Delete
+    void delete(Contact contact);
 }

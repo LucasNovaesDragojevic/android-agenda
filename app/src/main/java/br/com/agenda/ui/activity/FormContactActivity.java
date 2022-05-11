@@ -13,13 +13,14 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import br.com.agenda.R;
 import br.com.agenda.dao.ContactDao;
+import br.com.agenda.db.ContactsDatabase;
 import br.com.agenda.model.Contact;
 
 public class FormContactActivity extends AppCompatActivity {
 
-    private static final ContactDao CONTACT_DAO = new ContactDao();
     private static final String TITLE_NEW_CONTACT = "New Contact";
     private static final String TITLE_EDIT_CONTACT = "Edit Contact";
+    private static ContactDao CONTACT_DAO;
     private TextView nameTextView;
     private TextView phoneTextView;
     private TextView emailTextView;
@@ -29,6 +30,7 @@ public class FormContactActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_form_contact);
+        CONTACT_DAO = ContactsDatabase.getInstance(this).getContactDao();
         initViews();
         initContact();
     }
@@ -43,7 +45,10 @@ public class FormContactActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == R.id.activity_form_contact_menu_item_save) {
             fillContactWithView();
-            CONTACT_DAO.save(contact);
+            if (contact.getId() != null)
+                CONTACT_DAO.update(contact);
+            else
+                CONTACT_DAO.create(contact);
             finish();
         }
         return super.onOptionsItemSelected(item);

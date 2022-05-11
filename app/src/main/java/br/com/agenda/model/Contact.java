@@ -1,17 +1,25 @@
 package br.com.agenda.model;
 
 import androidx.annotation.NonNull;
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
 
 import java.io.Serializable;
 import java.util.Objects;
 import java.util.UUID;
 
+@Entity
 public class Contact implements Serializable {
 
-    private final String id = UUID.randomUUID().toString();
+    @PrimaryKey(autoGenerate = true)
+    private Integer id;
     private String name;
     private String phone;
     private String email;
+
+    public Integer getId() {
+        return id;
+    }
 
     public String getName() {
         return name;
@@ -23,6 +31,10 @@ public class Contact implements Serializable {
 
     public String getEmail() {
         return email;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public void setName(String name) {

@@ -14,18 +14,20 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.room.Room;
 
 import java.util.List;
 
 import br.com.agenda.R;
 import br.com.agenda.dao.ContactDao;
+import br.com.agenda.db.ContactsDatabase;
 import br.com.agenda.model.Contact;
 import br.com.agenda.ui.adapter.ListContactsAdapter;
 
 public class ListContactsActivity extends AppCompatActivity {
 
-    private static final ContactDao CONTACT_DAO = new ContactDao();
     private static final String TITLE = "Contacts";
+    private static ContactDao CONTACT_DAO;
     private ListView contactsListView;
     private List<Contact> contacts;
     private ListContactsAdapter adapter;
@@ -37,7 +39,7 @@ public class ListContactsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_list_contacts);
         contactsListView = findViewById(R.id.activity_list_contacts_listview);
         configAdapter();
-        contacts = CONTACT_DAO.getAll();
+        CONTACT_DAO = ContactsDatabase.getInstance(this).getContactDao();
         configNewContactButton();
         configClickOnItemList();
         registerForContextMenu(contactsListView);
@@ -64,7 +66,7 @@ public class ListContactsActivity extends AppCompatActivity {
                 .setPositiveButton("Yes", (dialogInterface, i) -> {
                     AdapterView.AdapterContextMenuInfo menuInfo = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
                     Contact contact = adapter.getItem(menuInfo.position);
-                    CONTACT_DAO.remove(contact);
+                    CONTACT_DAO.delete(contact);
                     adapter.remove(contact);
                 })
                 .setNegativeButton("No", null)
@@ -74,6 +76,7 @@ public class ListContactsActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        contacts = CONTACT_DAO.readAll();
         adapter.update(contacts);
     }
 
