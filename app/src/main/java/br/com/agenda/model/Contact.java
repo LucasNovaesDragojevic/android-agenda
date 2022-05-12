@@ -5,8 +5,9 @@ import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Objects;
-import java.util.UUID;
 
 @Entity
 public class Contact implements Serializable {
@@ -16,6 +17,7 @@ public class Contact implements Serializable {
     private String name;
     private String phone;
     private String email;
+    private Calendar createAt = Calendar.getInstance();
 
     public Integer getId() {
         return id;
@@ -33,6 +35,10 @@ public class Contact implements Serializable {
         return email;
     }
 
+    public Calendar getCreateAt() {
+        return createAt;
+    }
+
     public void setId(Integer id) {
         this.id = id;
     }
@@ -47,6 +53,10 @@ public class Contact implements Serializable {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public void setCreateAt(Calendar createAt) {
+        this.createAt = createAt;
     }
 
     @NonNull
