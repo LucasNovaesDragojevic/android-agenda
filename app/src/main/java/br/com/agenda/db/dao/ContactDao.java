@@ -1,4 +1,4 @@
-package br.com.agenda.dao;
+package br.com.agenda.db.dao;
 
 import androidx.room.Dao;
 import androidx.room.Delete;

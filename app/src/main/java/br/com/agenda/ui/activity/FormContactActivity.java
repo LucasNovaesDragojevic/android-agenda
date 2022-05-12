@@ -12,7 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import br.com.agenda.R;
-import br.com.agenda.dao.ContactDao;
+import br.com.agenda.db.dao.ContactDao;
 import br.com.agenda.db.ContactsDatabase;
 import br.com.agenda.model.Contact;
 

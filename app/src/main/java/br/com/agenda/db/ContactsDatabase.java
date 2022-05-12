@@ -9,7 +9,7 @@ import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import androidx.room.TypeConverters;
 
-import br.com.agenda.dao.ContactDao;
+import br.com.agenda.db.dao.ContactDao;
 import br.com.agenda.db.converter.CalendarConverter;
 import br.com.agenda.model.Contact;
 

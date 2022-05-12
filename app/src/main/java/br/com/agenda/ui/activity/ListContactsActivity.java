@@ -14,12 +14,11 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.room.Room;
 
 import java.util.List;
 
 import br.com.agenda.R;
-import br.com.agenda.dao.ContactDao;
+import br.com.agenda.db.dao.ContactDao;
 import br.com.agenda.db.ContactsDatabase;
 import br.com.agenda.model.Contact;
 import br.com.agenda.ui.adapter.ListContactsAdapter;
