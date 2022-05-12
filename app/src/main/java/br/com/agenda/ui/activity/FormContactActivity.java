@@ -12,8 +12,8 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import br.com.agenda.R;
+import br.com.agenda.db.ApplicationDatabase;
 import br.com.agenda.db.dao.ContactDao;
-import br.com.agenda.db.ContactsDatabase;
 import br.com.agenda.model.Contact;
 
 public class FormContactActivity extends AppCompatActivity {
@@ -30,7 +30,7 @@ public class FormContactActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_form_contact);
-        CONTACT_DAO = ContactsDatabase.getInstance(this).getContactDao();
+        CONTACT_DAO = ApplicationDatabase.getInstance(this).getContactDao();
         initViews();
         initContact();
     }

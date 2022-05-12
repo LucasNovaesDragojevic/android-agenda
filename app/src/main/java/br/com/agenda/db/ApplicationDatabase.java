@@ -17,15 +17,15 @@ import br.com.agenda.model.Contact;
           version = 4,
           exportSchema = false)
 @TypeConverters(CalendarConverter.class)
-public abstract class ContactsDatabase extends RoomDatabase {
+public abstract class ApplicationDatabase extends RoomDatabase {
 
-    private static ContactsDatabase instance;
+    private static ApplicationDatabase instance;
 
     public abstract ContactDao getContactDao();
 
-    public static ContactsDatabase getInstance(Context context) {
+    public static ApplicationDatabase getInstance(Context context) {
         if (instance == null)
-            return instance = Room.databaseBuilder(context, ContactsDatabase.class, "Contacts.db")
+            return instance = Room.databaseBuilder(context, ApplicationDatabase.class, "Contacts.db")
                                     .allowMainThreadQueries()
                                     .addMigrations(MIGRATIONS)
                                     .build();

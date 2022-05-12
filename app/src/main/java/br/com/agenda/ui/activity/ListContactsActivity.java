@@ -18,8 +18,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import java.util.List;
 
 import br.com.agenda.R;
+import br.com.agenda.db.ApplicationDatabase;
 import br.com.agenda.db.dao.ContactDao;
-import br.com.agenda.db.ContactsDatabase;
 import br.com.agenda.model.Contact;
 import br.com.agenda.ui.adapter.ListContactsAdapter;
 
@@ -38,7 +38,7 @@ public class ListContactsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_list_contacts);
         contactsListView = findViewById(R.id.activity_list_contacts_listview);
         configAdapter();
-        CONTACT_DAO = ContactsDatabase.getInstance(this).getContactDao();
+        CONTACT_DAO = ApplicationDatabase.getInstance(this).getContactDao();
         configNewContactButton();
         configClickOnItemList();
         registerForContextMenu(contactsListView);
