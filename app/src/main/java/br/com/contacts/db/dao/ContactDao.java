@@ -1,4 +1,4 @@
-package br.com.agenda.db.dao;
+package br.com.contacts.db.dao;
 
 import androidx.room.Dao;
 import androidx.room.Delete;
@@ -8,7 +8,7 @@ import androidx.room.Update;
 
 import java.util.List;
 
-import br.com.agenda.model.Contact;
+import br.com.contacts.model.Contact;
 
 @Dao
 public interface ContactDao {

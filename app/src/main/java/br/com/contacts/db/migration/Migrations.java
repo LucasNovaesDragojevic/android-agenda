@@ -1,4 +1,4 @@
-package br.com.agenda.db.migration;
+package br.com.contacts.db.migration;
 
 import androidx.annotation.NonNull;
 import androidx.room.migration.Migration;

@@ -1,4 +1,4 @@
-package br.com.agenda.db.converter;
+package br.com.contacts.db.converter;
 
 import androidx.room.TypeConverter;
 

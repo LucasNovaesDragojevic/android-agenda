@@ -1,4 +1,4 @@
-package br.com.agenda.ui.activity;
+package br.com.contacts.ui.activity;
 
 public enum ConstantsActivities {
 

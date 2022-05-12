@@ -1,4 +1,4 @@
-package br.com.agenda.ui.adapter;
+package br.com.contacts.ui.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -10,8 +10,8 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
-import br.com.agenda.R;
-import br.com.agenda.model.Contact;
+import br.com.contacts.R;
+import br.com.contacts.model.Contact;
 
 public class ListContactsAdapter extends BaseAdapter {
 

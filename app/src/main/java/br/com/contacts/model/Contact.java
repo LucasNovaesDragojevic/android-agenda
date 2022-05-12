@@ -1,11 +1,10 @@
-package br.com.agenda.model;
+package br.com.contacts.model;
 
 import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
 import java.io.Serializable;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Objects;
 

@@ -1,6 +1,6 @@
-package br.com.agenda.db;
+package br.com.contacts.db;
 
-import static br.com.agenda.db.migration.Migrations.MIGRATIONS;
+import static br.com.contacts.db.migration.Migrations.MIGRATIONS;
 
 import android.content.Context;
 
@@ -9,9 +9,9 @@ import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import androidx.room.TypeConverters;
 
-import br.com.agenda.db.dao.ContactDao;
-import br.com.agenda.db.converter.CalendarConverter;
-import br.com.agenda.model.Contact;
+import br.com.contacts.db.dao.ContactDao;
+import br.com.contacts.db.converter.CalendarConverter;
+import br.com.contacts.model.Contact;
 
 @Database(entities = {Contact.class},
           version = 4,

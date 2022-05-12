@@ -1,6 +1,6 @@
-package br.com.agenda.ui.activity;
+package br.com.contacts.ui.activity;
 
-import static br.com.agenda.ui.activity.ConstantsActivities.KEY_CONTACT;
+import static br.com.contacts.ui.activity.ConstantsActivities.KEY_CONTACT;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,10 +11,10 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import br.com.agenda.R;
-import br.com.agenda.db.ApplicationDatabase;
-import br.com.agenda.db.dao.ContactDao;
-import br.com.agenda.model.Contact;
+import br.com.contacts.R;
+import br.com.contacts.db.ApplicationDatabase;
+import br.com.contacts.db.dao.ContactDao;
+import br.com.contacts.model.Contact;
 
 public class FormContactActivity extends AppCompatActivity {
 
