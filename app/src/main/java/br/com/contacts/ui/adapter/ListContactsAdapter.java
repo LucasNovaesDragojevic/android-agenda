@@ -7,19 +7,23 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import br.com.contacts.R;
+import br.com.contacts.db.dao.PhoneDao;
 import br.com.contacts.model.Contact;
+import br.com.contacts.model.Phone;
 
 public class ListContactsAdapter extends BaseAdapter {
 
-    private final List<Contact> contacts = new ArrayList<>();
+    private final List<Contact> contacts;
     private final Context context;
+    private final PhoneDao phoneDao;
 
-    public ListContactsAdapter(Context context) {
+    public ListContactsAdapter(Context context, List<Contact> contacts, PhoneDao phoneDao) {
         this.context = context;
+        this.contacts = contacts;
+        this.phoneDao = phoneDao;
     }
 
     @Override
@@ -43,10 +47,11 @@ public class ListContactsAdapter extends BaseAdapter {
                 .from(context)
                 .inflate(R.layout.item_contact, viewGroup, false);
         Contact contact = contacts.get(position);
-        TextView name = viewCreated.findViewById(R.id.item_contact_name);
-        name.setText(contact.getName());
-        TextView phone = viewCreated.findViewById(R.id.item_contact_phone);
-        phone.setText(contact.getPhone());
+        TextView nameTextView = viewCreated.findViewById(R.id.item_contact_name);
+        nameTextView.setText(contact.getName());
+        TextView phoneTextView = viewCreated.findViewById(R.id.item_contact_phone);
+        final Phone phone = phoneDao.getFirstContactPhone(contact.getId());
+        phoneTextView.setText(phone.getNumber());
         return viewCreated;
     }
 

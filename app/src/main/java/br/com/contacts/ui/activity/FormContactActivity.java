@@ -74,13 +74,13 @@ public class FormContactActivity extends AppCompatActivity {
 
     private void fillViewWithContact() {
         nameTextView.setText(contact.getName());
-        phoneTextView.setText(contact.getPhone());
+        //phoneTextView.setText(contact.getPhone());
         emailTextView.setText(contact.getEmail());
     }
 
     private void fillContactWithView() {
         contact.setName(nameTextView.getText().toString());
-        contact.setPhone(phoneTextView.getText().toString());
+        //contact.setPhone(phoneTextView.getText().toString());
         contact.setEmail(emailTextView.getText().toString());
     }
 }

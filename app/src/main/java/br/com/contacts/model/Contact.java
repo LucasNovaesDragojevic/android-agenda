@@ -12,22 +12,17 @@ import java.util.Objects;
 public class Contact implements Serializable {
 
     @PrimaryKey(autoGenerate = true)
-    private Integer id;
+    private Long id;
     private String name;
-    private String phone;
     private String email;
     private Calendar createAt = Calendar.getInstance();
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
     public String getName() {
         return name;
-    }
-
-    public String getPhone() {
-        return phone;
     }
 
     public String getEmail() {
@@ -38,16 +33,12 @@ public class Contact implements Serializable {
         return createAt;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
     }
 
     public void setEmail(String email) {

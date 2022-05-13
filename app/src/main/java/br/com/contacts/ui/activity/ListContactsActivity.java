@@ -15,6 +15,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import br.com.contacts.R;
@@ -97,7 +98,7 @@ public class ListContactsActivity extends AppCompatActivity {
     }
 
     private void configAdapter() {
-        adapter = new ListContactsAdapter(this);
+        adapter = new ListContactsAdapter(this, new ArrayList<Contact>(), ApplicationDatabase.getInstance(this).getPhoneDao());
         contactsListView.setAdapter(adapter);
     }
 }
