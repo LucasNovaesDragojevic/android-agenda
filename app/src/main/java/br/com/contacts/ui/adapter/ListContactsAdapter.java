@@ -10,6 +10,7 @@ import android.widget.TextView;
 import java.util.List;
 
 import br.com.contacts.R;
+import br.com.contacts.db.asynctask.GetFirstPhoneFromContact;
 import br.com.contacts.db.dao.PhoneDao;
 import br.com.contacts.model.Contact;
 import br.com.contacts.model.Phone;
@@ -50,8 +51,9 @@ public class ListContactsAdapter extends BaseAdapter {
         TextView nameTextView = viewCreated.findViewById(R.id.item_contact_name);
         nameTextView.setText(contact.getName());
         TextView phoneTextView = viewCreated.findViewById(R.id.item_contact_phone);
-        final Phone phone = phoneDao.getFirstContactPhone(contact.getId());
-        phoneTextView.setText(phone.getNumber());
+        new GetFirstPhoneFromContact(phoneDao, contact.getId(),
+                phone -> phoneTextView.setText(phone.getNumber()))
+                .execute();
         return viewCreated;
     }
 

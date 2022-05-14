@@ -18,13 +18,21 @@
             android:inputType="textCapWords"
             android:hint="@string/name" />
 
-        <EditText android:id="@+id/activity_form_new_contact_phone"
+        <EditText android:id="@+id/activity_form_new_contact_phone_home"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
-            android:autofillHints="phone"
+            android:autofillHints="Home phone"
             android:inputType="phone"
-            android:hint="@string/phone" />
+            android:hint="@string/home_phone" />
+
+        <EditText android:id="@+id/activity_form_new_contact_phone_mobile"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:autofillHints="Mobile phone"
+            android:inputType="phone"
+            android:hint="@string/mobile_phone" />
 
         <EditText android:id="@+id/activity_form_new_contact_email"
             android:layout_width="match_parent"

@@ -20,7 +20,10 @@ import java.util.List;
 
 import br.com.contacts.R;
 import br.com.contacts.db.ApplicationDatabase;
+import br.com.contacts.db.asynctask.GetAllContacts;
+import br.com.contacts.db.asynctask.RemoveContact;
 import br.com.contacts.db.dao.ContactDao;
+import br.com.contacts.db.dao.PhoneDao;
 import br.com.contacts.model.Contact;
 import br.com.contacts.ui.adapter.ListContactsAdapter;
 
@@ -28,8 +31,9 @@ public class ListContactsActivity extends AppCompatActivity {
 
     private static final String TITLE = "Contacts";
     private static ContactDao CONTACT_DAO;
+    private static PhoneDao PHONE_DAO;
     private ListView contactsListView;
-    private List<Contact> contacts;
+    private List<Contact> contacts = new ArrayList<>();
     private ListContactsAdapter adapter;
 
     @Override
@@ -37,12 +41,22 @@ public class ListContactsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setTitle(TITLE);
         setContentView(R.layout.activity_list_contacts);
-        contactsListView = findViewById(R.id.activity_list_contacts_listview);
+        configDao();
+        configListView();
         configAdapter();
-        CONTACT_DAO = ApplicationDatabase.getInstance(this).getContactDao();
         configNewContactButton();
         configClickOnItemList();
         registerForContextMenu(contactsListView);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        new GetAllContacts(CONTACT_DAO, contactsFounded -> {
+            contacts.clear();
+            contacts.addAll(contactsFounded);
+            adapter.update(contacts);
+        }).execute();
     }
 
     @Override
@@ -53,10 +67,19 @@ public class ListContactsActivity extends AppCompatActivity {
 
     @Override
     public boolean onContextItemSelected(@NonNull final MenuItem item) {
-        if (item.getItemId() == R.id.activity_list_contacts_menu_remove) {
+        if (item.getItemId() == R.id.activity_list_contacts_menu_remove)
             configRemoveContactDialog(item);
-        }
         return super.onContextItemSelected(item);
+    }
+
+    private void configDao() {
+        final ApplicationDatabase database = ApplicationDatabase.getInstance(this);
+        CONTACT_DAO = database.getContactDao();
+        PHONE_DAO = database.getPhoneDao();
+    }
+
+    private void configListView() {
+        contactsListView = findViewById(R.id.activity_list_contacts_listview);
     }
 
     private void configRemoveContactDialog(@NonNull final MenuItem item) {
@@ -65,19 +88,11 @@ public class ListContactsActivity extends AppCompatActivity {
                 .setMessage("Are you sure you want to remove this contact?")
                 .setPositiveButton("Yes", (dialogInterface, i) -> {
                     AdapterView.AdapterContextMenuInfo menuInfo = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
-                    Contact contact = adapter.getItem(menuInfo.position);
-                    CONTACT_DAO.delete(contact);
-                    adapter.remove(contact);
+                    final Contact contact = adapter.getItem(menuInfo.position);
+                    new RemoveContact(contact, CONTACT_DAO, adapter).execute();
                 })
                 .setNegativeButton("No", null)
                 .show();
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        contacts = CONTACT_DAO.readAll();
-        adapter.update(contacts);
     }
 
     private void configNewContactButton() {
@@ -98,7 +113,7 @@ public class ListContactsActivity extends AppCompatActivity {
     }
 
     private void configAdapter() {
-        adapter = new ListContactsAdapter(this, new ArrayList<Contact>(), ApplicationDatabase.getInstance(this).getPhoneDao());
+        adapter = new ListContactsAdapter(this, new ArrayList<>(), PHONE_DAO);
         contactsListView.setAdapter(adapter);
     }
 }

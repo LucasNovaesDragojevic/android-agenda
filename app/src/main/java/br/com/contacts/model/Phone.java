@@ -4,6 +4,7 @@ import static androidx.room.ForeignKey.CASCADE;
 
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
+import androidx.room.Ignore;
 import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
@@ -17,6 +18,14 @@ public class Phone {
     private String number;
     private PhoneType type;
     private Long contactId;
+
+    public Phone() {}
+
+    @Ignore
+    public Phone(String number, PhoneType type) {
+        this.number = number;
+        this.type = type;
+    }
 
     public Long getId() {
         return id;

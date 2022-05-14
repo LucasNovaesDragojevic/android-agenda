@@ -30,7 +30,6 @@ public abstract class ApplicationDatabase extends RoomDatabase {
     public static ApplicationDatabase getInstance(Context context) {
         if (instance == null)
             return instance = Room.databaseBuilder(context, ApplicationDatabase.class, "Contacts.db")
-                                    .allowMainThreadQueries()
                                     .addMigrations(MIGRATIONS)
                                     .build();
 

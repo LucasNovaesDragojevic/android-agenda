@@ -14,7 +14,7 @@ import br.com.contacts.model.Contact;
 public interface ContactDao {
 
     @Insert
-    void create(Contact contact);
+    Long create(Contact contact);
 
     @Query("SELECT * FROM contact")
     List<Contact> readAll();
